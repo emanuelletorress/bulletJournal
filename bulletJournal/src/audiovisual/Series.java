@@ -127,6 +127,8 @@ public class Series extends Audiovisual {
 					assistidos.add(all.get(i));
 					assistindo.remove(all.get(i));
 					System.out.println("Status alterado com sucesso.");
+					System.out.println("Status antes: assistindo");
+					System.out.println("Status agora: assistida");
 					return true;
 				}else {
 					((Series) all.get(i)).setStatus(true);
@@ -134,6 +136,8 @@ public class Series extends Audiovisual {
 					assistindo.add(all.get(i));
 					assistidos.remove(all.get(i));
 					System.out.println("Status alterado com sucesso.");
+					System.out.println("Status antes: assistida");
+					System.out.println("Status agora: assistindo");
 					return true;
 				}
 			}
@@ -151,7 +155,7 @@ public class Series extends Audiovisual {
 						ep = scan.nextInt();
 						if(ep > 0 || ep < ((Series) assistindo.get(i)).getQtdEpisodios()) {
 							((Series) assistindo.get(i)).setEpisodioAtual(ep);
-							System.out.println("Episódio atual alterado.");
+							System.out.println("Último episódio visto alterado.");
 							break;
 						}else if(ep <= 0 || ep > ((Series) assistindo.get(i)).getQtdEpisodios()) {
 							continue;
@@ -173,7 +177,7 @@ public class Series extends Audiovisual {
 						return true;
 					}else {
 						((Series) assistindo.get(i)).setEpisodioAtual(ep);
-						System.out.println("Episódio atual alterado.");
+						System.out.println("Último episódio visto alterado.");
 						return true;
 					}
 				}

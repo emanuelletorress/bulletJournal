@@ -1,6 +1,7 @@
 package leituras;
 
 import java.util.ArrayList;
+
 import java.util.Scanner;
 import bulletJournal.*;
 
@@ -82,12 +83,12 @@ public class Leituras implements ListaDeLeitura {
 				if(((Leituras) m).getLivroOuManga().matches("livro") 
 						&& ((Leituras) leituras.get(i)).getLivroOuManga().matches("livro") 
 						&& m.getLabel().matches(leituras.get(i).getLabel())) {
-					System.out.println("Livro já adicionado na lista.");
+					System.out.println("Livro já adicionado anteriormente.");
 					return false;
 				}else if(((Leituras) m).getLivroOuManga().matches("mangá") 
 						&& ((Leituras) leituras.get(i)).getLivroOuManga().matches("mangá") 
 						&& m.getLabel().matches(leituras.get(i).getLabel())) {
-					System.out.println("Mangá já adicionado na lista.");
+					System.out.println("Mangá já adicionado anteriormente.");
 					return false;
 				}
 			}
@@ -113,22 +114,26 @@ public class Leituras implements ListaDeLeitura {
 	public boolean modificarStatus(String label) {
 		for(int i = 0; i < leituras.size(); i++) {
 			if(leituras.get(i).getLabel().equals(label)) {
-				System.out.println("Status modificado com sucesso.");
 				if(leituras.get(i).isStatus() == true) {
 					lidos.add(leituras.get(i));
 					((Leituras) leituras.get(i)).setStatus(false);
 					lendo.remove(leituras.get(i));
+					System.out.println("Status modificado com sucesso.");
+					System.out.println("Status antes: lendo");
+					System.out.println("Status agora: lido");
 					return true;
 				}else {
 					lendo.add(leituras.get(i));
 					((Leituras) leituras.get(i)).setStatus(true);
 					lidos.remove(leituras.get(i));
+					System.out.println("Status modificado com sucesso.");
+					System.out.println("Status antes: lido");
+					System.out.println("Status agora: lendo");
 					return true;
 				}
 			}
 		}
-		// se nao achar o nome, jogar uma exceção
-		
+
 		System.out.println("Mangá/livro não encontrado.");
 		return false;
 
@@ -171,9 +176,9 @@ public class Leituras implements ListaDeLeitura {
 				}else if(pag < ((Leituras) leituras.get(i)).getTamanho() && pag > 0){
 					((Leituras) leituras.get(i)).setOndeParei(pag);
 					if(((Leituras) leituras.get(i)).getLivroOuManga().matches("livro")) {
-						System.out.println("Página alterada com sucesso");
+						System.out.println("Página alterada com sucesso.");
 					}else {
-						System.out.println("Volume alterado com sucesso");
+						System.out.println("Volume alterado com sucesso.");
 					}
 					return true;
 				}else if(pag == ((Leituras) leituras.get(i)).getTamanho()) {
@@ -192,7 +197,7 @@ public class Leituras implements ListaDeLeitura {
 
 		System.out.println("Livro não encontrado.");
 		return false;
-		// se nao achou o livro/manga, exceção
+
 	}
 	
 	public void listarLendo() {
@@ -215,12 +220,22 @@ public class Leituras implements ListaDeLeitura {
 	
 	public String toString() {
 		String strin = "*******************************************************\n";
-		if(this.status == false) {
-			strin += "Tipo: " + this.livroOuManga + "\nTítulo: " + this.label + "\nAutor: " + this.author + "\nNº de páginas: "
-					+ this.tamanho + "\nStatus: lido\nOnde parei: " + this.ondeParei;
+		if(this.livroOuManga == "livro") {
+			if(this.status == false) {
+				strin += "Tipo: " + this.livroOuManga + "\nTítulo: " + this.label + "\nAutor: " + this.author + "\nNº de páginas: "
+						+ this.tamanho + "\nStatus: lido\nOnde parei: " + this.ondeParei;
+			}else {
+				strin += "Tipo: " + this.livroOuManga + "\nTítulo: " + this.label + "\nAutor: " + this.author + "\nNº de páginas: "
+						+ this.tamanho + "\nStatus: lendo\nOnde parei: " + this.ondeParei;
+			}
 		}else {
-			strin += "Tipo: " + this.livroOuManga + "\nTítulo: " + this.label + "\nAutor: " + this.author + "\nNº de páginas: "
-					+ this.tamanho + "\nStatus: lendo\nOnde parei: " + this.ondeParei;
+			if(this.status == false) {
+				strin += "Tipo: " + this.livroOuManga + "\nTítulo: " + this.label + "\nAutor: " + this.author + "\nNº de volumes: "
+						+ this.tamanho + "\nStatus: lido\nOnde parei: " + this.ondeParei;
+			}else {
+				strin += "Tipo: " + this.livroOuManga + "\nTítulo: " + this.label + "\nAutor: " + this.author + "\nNº de volumes: "
+						+ this.tamanho + "\nStatus: lendo\nOnde parei: " + this.ondeParei;
+			}
 		}
 		return strin + "\n";
 	}

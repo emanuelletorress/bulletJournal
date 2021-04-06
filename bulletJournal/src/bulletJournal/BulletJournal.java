@@ -7,6 +7,10 @@ public class BulletJournal {
 		this.proprietario = proprietario;
 	}
 	
+	public BulletJournal() {
+		
+	}
+	
 	public String getProprietario() {
 		return this.proprietario;
 	}
